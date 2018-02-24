@@ -90,6 +90,12 @@ class CanvasViewController: UIViewController {
             
             newlyCreatedFaceOriginalCenter = newlyCreatedFace.center
             
+            UIView.animate(withDuration:0.4, delay: 0.0,
+                           options: [],
+                           animations: { () -> Void in
+                            self.newlyCreatedFace.transform = CGAffineTransform(scaleX: 2, y: 2)
+            }, completion: nil)
+            
             // Here we use the method didPan(sender:), which we defined in the previous step, as the action.
             let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(faces(sender:)))
             
@@ -104,6 +110,11 @@ class CanvasViewController: UIViewController {
          //   newlyCreatedFaceOriginalCenter = newlyCreatedFace.center // so we can offset by translation later.
             
         } else if sender.state == .ended {
+            UIView.animate(withDuration:0.4, delay: 0.0,
+                           options: [],
+                           animations: { () -> Void in
+                            self.newlyCreatedFace.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }, completion: nil)
             
         }
     }
@@ -112,11 +123,7 @@ class CanvasViewController: UIViewController {
         let translation = sender.translation(in: view)
         
         if sender.state == .began {
-            UIView.animate(withDuration:0.4, delay: 0.0,
-                           options: [],
-                           animations: { () -> Void in
-                            self.newlyCreatedFace.transform = CGAffineTransform(scaleX: 2, y: 2)
-            }, completion: nil)
+            
             print("Gesture began")
             newlyCreatedFace = sender.view as! UIImageView // to get the face that we panned on.
             newlyCreatedFaceOriginalCenter = newlyCreatedFace.center // so we can offset by translation later.
@@ -124,6 +131,12 @@ class CanvasViewController: UIViewController {
         } else if sender.state == .changed {
             print("Gesture is changing")
             newlyCreatedFace.center = CGPoint(x: newlyCreatedFaceOriginalCenter.x + translation.x, y: newlyCreatedFaceOriginalCenter.y + translation.y)
+            UIView.animate(withDuration:0.4, delay: 0.0,
+                           options: [],
+                           animations: { () -> Void in
+                            self.newlyCreatedFace.transform = CGAffineTransform(scaleX: 2, y: 2)
+            }, completion: nil)
+            print("Gesture ended")
             
         } else if sender.state == .ended {
             UIView.animate(withDuration:0.4, delay: 0.0,
@@ -137,6 +150,9 @@ class CanvasViewController: UIViewController {
         
     }
     
+    @IBAction func pinchedIcon(_ sender: Any) {
+      
+    }
     /*
     // MARK: - Navigation
 
